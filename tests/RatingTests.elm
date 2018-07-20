@@ -2,7 +2,7 @@ module RatingTests exposing (..)
 
 import Expect exposing (Expectation)
 import Html exposing (text)
-import Rating exposing (generateRatingList, ratingToBoolean, renderStar)
+import Rating exposing (RatingModel, chooseCharacter, generateRatingList, ratingToBoolean, updatedRenderedRatingOnEnter)
 import Test exposing (..)
 
 
@@ -24,10 +24,16 @@ suite =
             , test "3 rating returns list of 3 true followed by 2 false" <|
                 \_ -> (generateRatingList 3 |> Expect.equal [ True, True, True, False, False ])
             ]
-        , describe "renderStar tests"
+        , describe "chooseCharacter tests"
             [ test "True returns filled star" <|
-                \_ -> (renderStar True) |> Expect.equal (text "★")
+                \_ -> (chooseCharacter True) |> Expect.equal (text "★")
             , test "False returns empty star" <|
-                \_ -> (renderStar False) |> Expect.equal (text "☆")
+                \_ -> (chooseCharacter False) |> Expect.equal (text "☆")
+            ]
+        , describe "updatedRenderedRatingOnEnter tests"
+            [ test "if rating is greater than index of entered star on mouseEnter then set renderedRating to rating" <|
+                \_ -> 2 |> updatedRenderedRatingOnEnter (RatingModel 3 3) |> Expect.equal (RatingModel 3 3)
+            , test "if rating is less than index of entered star on mouseEnter then set renderedRating to index of entered star" <|
+                \_ -> 3 |> updatedRenderedRatingOnEnter (RatingModel 2 2) |> Expect.equal (RatingModel 2 3)
             ]
         ]

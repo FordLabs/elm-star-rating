@@ -1,8 +1,8 @@
 module Main exposing (main)
 
-import Html exposing (Html, button, div, span, text)
-import Html.Events exposing (onClick)
-import Rating exposing (generateRatingList, renderStar)
+import Html exposing (Html, div)
+import Msg exposing (Msg(UpdateRating, UpdateRenderedRatingOnEnter, UpdateRenderedRatingOnLeave))
+import Rating exposing (RatingModel, chooseCharacter, generateRatingList, renderStars, updatedRenderedRatingOnEnter)
 
 
 main : Program Never Model Msg
@@ -15,41 +15,28 @@ main =
         }
 
 
+type alias Model =
+    RatingModel
+
+
 init : ( Model, Cmd Msg )
 init =
-    ( Model 0, Cmd.none )
+    ( RatingModel 0 0, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
-
         UpdateRating rating ->
-            ( Model rating, Cmd.none )
+            ( { rating = rating, renderedRating = rating }, Cmd.none )
 
+        UpdateRenderedRatingOnEnter enteredRating ->
+            ( enteredRating |> updatedRenderedRatingOnEnter model, Cmd.none )
 
-type alias Model =
-    { rating : Int
-    }
-
-
-type Msg
-    = NoOp
-    | UpdateRating Int
-
-
-star : Int -> Bool -> Html Msg
-star index filled =
-    span [ onClick (UpdateRating (index + 1)) ] [ renderStar filled ]
-
-
-renderStars : Int -> List (Html Msg)
-renderStars rating =
-    (generateRatingList rating) |> List.indexedMap star
+        UpdateRenderedRatingOnLeave ->
+            ( { model | renderedRating = model.rating }, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
-    div [] (renderStars model.rating)
+    div [] (renderStars model.renderedRating)
