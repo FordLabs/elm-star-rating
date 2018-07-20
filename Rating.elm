@@ -16,11 +16,6 @@ generateRatingList rating =
     List.indexedMap (\index _ -> ratingToBoolean index rating) [ 1, 2, 3, 4, 5 ]
 
 
-star : Bool -> Html msg
-star filled =
-    span [] [ renderStar filled ]
-
-
 renderStar : Bool -> Html msg
 renderStar filled =
     if filled then

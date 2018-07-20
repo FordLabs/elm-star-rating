@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Html exposing (Html, button, div, span, text)
 import Html.Events exposing (onClick)
-import Rating exposing (star, generateRatingList)
+import Rating exposing (generateRatingList, renderStar)
 
 
 main : Program Never Model Msg
@@ -17,7 +17,7 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model (generateRatingList 0) 0, Cmd.none )
+    ( Model 0, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -26,28 +26,30 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 
-        RatingUp ->
-            let
-                updatedRating =
-                    model.rating + 1
-
-                updatedRatingList =
-                    generateRatingList updatedRating
-            in
-                ( Model updatedRatingList updatedRating, Cmd.none )
+        UpdateRating rating ->
+            ( Model rating, Cmd.none )
 
 
 type alias Model =
-    { ratingList : List Bool
-    , rating : Int
+    { rating : Int
     }
 
 
 type Msg
     = NoOp
-    | RatingUp
+    | UpdateRating Int
+
+
+star : Int -> Bool -> Html Msg
+star index filled =
+    span [ onClick (UpdateRating (index + 1)) ] [ renderStar filled ]
+
+
+renderStars : Int -> List (Html Msg)
+renderStars rating =
+    (generateRatingList rating) |> List.indexedMap star
 
 
 view : Model -> Html Msg
 view model =
-    div [] ((model.ratingList |> List.map star) ++ [ button [ onClick RatingUp ] [ text "+1" ] ])
+    div [] (renderStars model.rating)
