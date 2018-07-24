@@ -29,7 +29,7 @@ ratingToBoolean index rating =
 
 generateRatingList : Int -> List Bool
 generateRatingList rating =
-    List.indexedMap (\index _ -> ratingToBoolean index rating) [ 1, 2, 3, 4, 5 ]
+    List.indexedMap (\index _ -> ratingToBoolean index rating) (List.repeat 5 "")
 
 
 chooseCharacter : Bool -> Html msg
