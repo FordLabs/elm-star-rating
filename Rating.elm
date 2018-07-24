@@ -1,14 +1,24 @@
 module Rating exposing (..)
 
-import Html exposing (Html, span, text)
+import Html exposing (Html, div, span, text)
 import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
-import Msg exposing (Msg(UpdateRating, UpdateRenderedRatingOnEnter, UpdateRenderedRatingOnLeave))
 
 
 type alias RatingModel =
     { rating : Int
     , renderedRating : Int
     }
+
+
+type Msg
+    = UpdateRating Int
+    | UpdateRenderedRatingOnEnter Int
+    | UpdateRenderedRatingOnLeave
+
+
+initialRatingModel : RatingModel
+initialRatingModel =
+    RatingModel 0 0
 
 
 updatedRenderedRatingOnEnter : RatingModel -> Int -> RatingModel
@@ -54,6 +64,19 @@ star index filled =
             [ chooseCharacter filled ]
 
 
-renderStars : Int -> List (Html Msg)
-renderStars rating =
-    (generateRatingList rating) |> List.indexedMap star
+view : RatingModel -> Html Msg
+view ratingModel =
+    div [] ((generateRatingList ratingModel.renderedRating) |> List.indexedMap star)
+
+
+update : Msg -> RatingModel -> RatingModel
+update msg model =
+    case msg of
+        UpdateRating rating ->
+            { rating = rating, renderedRating = rating }
+
+        UpdateRenderedRatingOnEnter enteredRating ->
+            enteredRating |> updatedRenderedRatingOnEnter model
+
+        UpdateRenderedRatingOnLeave ->
+            { model | renderedRating = model.rating }
