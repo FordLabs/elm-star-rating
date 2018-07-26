@@ -1,7 +1,7 @@
 module Main exposing (main)
 
-import Html exposing (Html, div)
-import Rating exposing (RatingModel, Msg, chooseCharacter, generateRatingList, initialRatingModel, updatedRenderedRatingOnEnter, view)
+import Html exposing (Html, div, text)
+import Rating
 
 
 main : Program Never Model Msg
@@ -15,7 +15,7 @@ main =
 
 
 type alias Model =
-    { ratingModel : RatingModel }
+    { ratingState : Rating.State }
 
 
 type Msg
@@ -24,16 +24,22 @@ type Msg
 
 init : ( Model, Cmd Msg )
 init =
-    ( { ratingModel = initialRatingModel }, Cmd.none )
+    ( { ratingState = Rating.initialRatingModel }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         RatingMsg msg ->
-            ( { model | ratingModel = (Rating.update msg model.ratingModel) }, Cmd.none )
+            ( { model | ratingState = (Rating.update msg model.ratingState) }, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
-    div [] [ (Html.map RatingMsg (Rating.view model.ratingModel)) ]
+    div []
+        [ (Html.map RatingMsg (Rating.view model.ratingState))
+        , div []
+            [ text
+                ((Rating.get model.ratingState) |> toString)
+            ]
+        ]

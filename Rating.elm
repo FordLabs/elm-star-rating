@@ -1,13 +1,17 @@
-module Rating exposing (..)
+module Rating exposing (State, view, update, initialRatingModel, Msg, get)
 
 import Html exposing (Html, div, span, text)
 import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
 
 
-type alias RatingModel =
+type alias Model =
     { rating : Int
     , renderedRating : Int
     }
+
+
+type State
+    = RatingType Model
 
 
 type Msg
@@ -16,17 +20,31 @@ type Msg
     | UpdateRenderedRatingOnLeave
 
 
-initialRatingModel : RatingModel
-initialRatingModel =
-    RatingModel 0 0
+view : State -> Html Msg
+view ratingModel =
+    let
+        val =
+            case ratingModel of
+                RatingType a ->
+                    a.renderedRating
+    in
+        div []
+            (generateRatingList
+                val
+                |> List.indexedMap star
+            )
 
 
-updatedRenderedRatingOnEnter : RatingModel -> Int -> RatingModel
-updatedRenderedRatingOnEnter ratingModel enteredRating =
-    if ratingModel.rating > enteredRating then
-        { ratingModel | renderedRating = ratingModel.rating }
-    else
-        { ratingModel | renderedRating = enteredRating }
+get : State -> Int
+get state =
+    case state of
+        RatingType model ->
+            model.rating
+
+
+generateRatingList : Int -> List Bool
+generateRatingList rating =
+    List.indexedMap (\index _ -> ratingToBoolean index rating) (List.repeat 5 "")
 
 
 ratingToBoolean : Int -> Int -> Bool
@@ -35,19 +53,6 @@ ratingToBoolean index rating =
         True
     else
         False
-
-
-generateRatingList : Int -> List Bool
-generateRatingList rating =
-    List.indexedMap (\index _ -> ratingToBoolean index rating) (List.repeat 5 "")
-
-
-chooseCharacter : Bool -> Html msg
-chooseCharacter filled =
-    if filled then
-        text "★"
-    else
-        text "☆"
 
 
 star : Int -> Bool -> Html Msg
@@ -64,19 +69,47 @@ star index filled =
             [ chooseCharacter filled ]
 
 
-view : RatingModel -> Html Msg
-view ratingModel =
-    div [] ((generateRatingList ratingModel.renderedRating) |> List.indexedMap star)
+chooseCharacter : Bool -> Html msg
+chooseCharacter filled =
+    if filled then
+        text "★"
+    else
+        text "☆"
 
 
-update : Msg -> RatingModel -> RatingModel
+update : Msg -> State -> State
 update msg model =
-    case msg of
-        UpdateRating rating ->
-            { rating = rating, renderedRating = rating }
+    let
+        ratingModel =
+            case model of
+                RatingType ratingModel ->
+                    ratingModel
+    in
+        case msg of
+            UpdateRating rating ->
+                RatingType { rating = rating, renderedRating = rating }
 
-        UpdateRenderedRatingOnEnter enteredRating ->
-            enteredRating |> updatedRenderedRatingOnEnter model
+            UpdateRenderedRatingOnEnter enteredRating ->
+                enteredRating |> updatedRenderedRatingOnEnter model
 
-        UpdateRenderedRatingOnLeave ->
-            { model | renderedRating = model.rating }
+            UpdateRenderedRatingOnLeave ->
+                RatingType { ratingModel | renderedRating = ratingModel.rating }
+
+
+updatedRenderedRatingOnEnter : State -> Int -> State
+updatedRenderedRatingOnEnter ratingModel enteredRating =
+    let
+        model =
+            case ratingModel of
+                RatingType a ->
+                    a
+    in
+        if model.rating > enteredRating then
+            RatingType { model | renderedRating = model.rating }
+        else
+            RatingType { model | renderedRating = enteredRating }
+
+
+initialRatingModel : State
+initialRatingModel =
+    RatingType (Model 0 0)
