@@ -1,6 +1,6 @@
 module Rating exposing (State, view, update, initialRatingModel, Msg, get)
 
-{-| A simple five star rating component. Uses unicode star characters.
+{-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
 
 
 # Init
