@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8eb319fa-2060-4eed-9c21-0495f89fb19c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/Main.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/example/Example.elm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rating.elm" beforeDir="false" afterPath="$PROJECT_DIR$/Rating.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/RatingTests.elm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-package.json" beforeDir="false" afterPath="$PROJECT_DIR$/elm-package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,70 +18,53 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Main.elm" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Main.elm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="466">
-                  <caret line="40" column="44" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Rating.elm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Rating.elm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="390">
-                  <caret line="27" column="68" lean-forward="true" selection-start-line="27" selection-start-column="68" selection-end-line="27" selection-end-column="68" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Html.elm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/elm-stuff/packages/elm-lang/html/2.0.0/src/Html.elm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-51">
-                  <caret line="106" column="11" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Model.elm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Internal/Model.elm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="105">
-                  <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Helpers.elm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Internal/Helpers.elm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="HelperTests.elm" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tests/HelperTests.elm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="525">
-                  <caret line="35" column="48" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Example.elm" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/Example.elm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.elm" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Internal/Model.elm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rating.elm" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Rating.elm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1048">
+              <caret line="125" column="26" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="elm-package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/elm-package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Helpers.elm" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Internal/Helpers.elm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -101,9 +84,11 @@
         <option value="$PROJECT_DIR$/Internal/Model.elm" />
         <option value="$PROJECT_DIR$/Internal/Helpers.elm" />
         <option value="$PROJECT_DIR$/tests/HelperTests.elm" />
-        <option value="$PROJECT_DIR$/Rating.elm" />
         <option value="$PROJECT_DIR$/styles.css" />
         <option value="$PROJECT_DIR$/Main.elm" />
+        <option value="$PROJECT_DIR$/elm-package.json" />
+        <option value="$PROJECT_DIR$/example/Example.elm" />
+        <option value="$PROJECT_DIR$/Rating.elm" />
       </list>
     </option>
   </component>
@@ -139,12 +124,12 @@
             <path>
               <item name="elm-star-rating" type="b2602c69:ProjectViewProjectNode" />
               <item name="elm-star-rating" type="462c0819:PsiDirectoryNode" />
-              <item name="Internal" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="elm-star-rating" type="b2602c69:ProjectViewProjectNode" />
               <item name="elm-star-rating" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="Internal" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -167,6 +152,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example" />
       <recent name="$PROJECT_DIR$/Internal" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -247,12 +233,12 @@
       <workItem from="1532619033113" duration="46000" />
       <workItem from="1532619236056" duration="6785000" />
       <workItem from="1532972153985" duration="569000" />
-      <workItem from="1533924373087" duration="3984000" />
+      <workItem from="1533924373087" duration="6962000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33186000" />
+    <option name="totallyTimeSpent" value="36164000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="1417" extended-state="0" />
@@ -305,14 +291,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/RatingTests.elm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
@@ -352,7 +331,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Star.elm" />
     <entry file="file://$PROJECT_DIR$/Msg.elm" />
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="511">
           <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
@@ -373,7 +352,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
@@ -395,7 +374,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
@@ -417,7 +396,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
@@ -432,7 +411,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
@@ -447,7 +426,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
@@ -462,7 +441,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
@@ -521,36 +500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/HelperTests.elm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
+        <state relative-caret-position="246">
           <caret line="35" column="48" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/elm-stuff/packages/elm-lang/html/2.0.0/src/Html.elm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="106" column="11" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Internal/Model.elm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Internal/Helpers.elm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Rating.elm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="27" column="68" lean-forward="true" selection-start-line="27" selection-start-column="68" selection-end-line="27" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -561,10 +512,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Main.elm">
+    <entry file="file://$PROJECT_DIR$/elm-stuff/packages/elm-lang/html/2.0.0/src/Html.elm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="40" column="44" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
+        <state relative-caret-position="-51">
+          <caret line="106" column="11" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Internal/Helpers.elm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/elm-package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/Example.elm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Internal/Model.elm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Rating.elm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1048">
+          <caret line="125" column="26" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
         </state>
       </provider>
     </entry>

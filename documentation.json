@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Rating",
+    "comment": " A simple five star rating component. Uses unicode star characters.\n\n\n# Init\n\n@docs initialRatingModel\n\n\n# View\n\n@docs view\n\n\n# Update\n\n@docs update\n\n\n# Helpers\n\n@docs get\n\n\n# Types\n\n@docs State, Msg\n\n",
+    "aliases": [],
+    "types": [
+      {
+        "name": "Msg",
+        "comment": " Opaque type obscuring rating messages\n",
+        "args": [],
+        "cases": []
+      },
+      {
+        "name": "State",
+        "comment": " Opaque type obscuring rating model\n",
+        "args": [],
+        "cases": []
+      }
+    ],
+    "values": [
+      {
+        "name": "get",
+        "comment": " Get the current rating\n\n    Rating.get ratingState\n\n",
+        "type": "Rating.State -> Int"
+      },
+      {
+        "name": "initialRatingModel",
+        "comment": " Initial rating model. Sets rating to zero.\n",
+        "type": "Rating.State"
+      },
+      {
+        "name": "update",
+        "comment": " Update the state of the rating component.\n\n    RatingMsg msg ->\n        ( { model | ratingState = (Rating.update msg model.ratingState) }, Cmd.none )\n\n",
+        "type": "Rating.Msg -> Rating.State -> Rating.State"
+      },
+      {
+        "name": "view",
+        "comment": " Render the component. Accepts a list of css class names and a Rating.State.\nNote that the component uses text characters to display the stars, so use css accordingly.\n\n    Rating.view [\"cssClass1\",\"cssClass2\"] ratingState\n\n",
+        "type": "List String -> Rating.State -> Html.Html Rating.Msg"
+      }
+    ],
+    "generated-with-elm-version": "0.18.0"
+  }
+]
