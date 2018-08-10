@@ -1,13 +1,10 @@
 module Rating exposing (State, view, update, initialRatingModel, Msg, get)
 
-import Html exposing (Html, div, span, text)
+import Html exposing (Attribute, Html, div, span, text)
+import Html.Attributes exposing (class)
 import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
-
-
-type alias Model =
-    { rating : Int
-    , renderedRating : Int
-    }
+import Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
+import Internal.Model exposing (Model)
 
 
 type State
@@ -20,15 +17,15 @@ type Msg
     | UpdateRenderedRatingOnLeave
 
 
-view : State -> Html Msg
-view ratingModel =
+view : List String -> State -> Html Msg
+view attributes ratingModel =
     let
         val =
             case ratingModel of
                 RatingType a ->
                     a.renderedRating
     in
-        div []
+        div (attributes |> List.map (\attribute -> class attribute))
             (generateRatingList
                 val
                 |> List.indexedMap star
@@ -40,19 +37,6 @@ get state =
     case state of
         RatingType model ->
             model.rating
-
-
-generateRatingList : Int -> List Bool
-generateRatingList rating =
-    List.indexedMap (\index _ -> ratingToBoolean index rating) (List.repeat 5 "")
-
-
-ratingToBoolean : Int -> Int -> Bool
-ratingToBoolean index rating =
-    if rating > index then
-        True
-    else
-        False
 
 
 star : Int -> Bool -> Html Msg
@@ -67,14 +51,6 @@ star index filled =
             , onMouseLeave UpdateRenderedRatingOnLeave
             ]
             [ chooseCharacter filled ]
-
-
-chooseCharacter : Bool -> Html msg
-chooseCharacter filled =
-    if filled then
-        text "★"
-    else
-        text "☆"
 
 
 update : Msg -> State -> State
@@ -101,13 +77,10 @@ updatedRenderedRatingOnEnter ratingModel enteredRating =
     let
         model =
             case ratingModel of
-                RatingType a ->
-                    a
+                RatingType model ->
+                    model
     in
-        if model.rating > enteredRating then
-            RatingType { model | renderedRating = model.rating }
-        else
-            RatingType { model | renderedRating = enteredRating }
+        RatingType (updateRenderedRating model enteredRating)
 
 
 initialRatingModel : State

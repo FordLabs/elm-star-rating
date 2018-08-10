@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Html exposing (Html, div, text)
+import Html.Attributes exposing (style)
 import Rating
 
 
@@ -37,7 +38,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div []
-        [ (Html.map RatingMsg (Rating.view model.ratingState))
+        [ (Html.map RatingMsg (Rating.view [] model.ratingState))
         , div []
             [ text
                 ((Rating.get model.ratingState) |> toString)
