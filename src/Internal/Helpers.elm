@@ -1,4 +1,4 @@
-module Internal.Helpers exposing (..)
+module Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
 
 import Html exposing (Html, text)
 import Internal.Model exposing (Model)
@@ -8,6 +8,7 @@ ratingToBoolean : Int -> Int -> Bool
 ratingToBoolean index rating =
     if rating > index then
         True
+
     else
         False
 
@@ -16,6 +17,7 @@ chooseCharacter : Bool -> Html msg
 chooseCharacter filled =
     if filled then
         text "★"
+
     else
         text "☆"
 
@@ -29,5 +31,6 @@ updateRenderedRating : Model -> Int -> Model
 updateRenderedRating model enteredRating =
     if model.rating > enteredRating then
         { model | renderedRating = model.rating }
+
     else
         { model | renderedRating = enteredRating }

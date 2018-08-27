@@ -2,15 +2,15 @@ module Example exposing (main)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style)
+import Browser
 import Rating
 
 
-main : Program Never Model Msg
+main : Program () Model Msg
 main =
-    Html.program
+    Browser.sandbox
         { init = init
         , update = update
-        , subscriptions = \_ -> Sub.none
         , view = view
         }
 
@@ -23,24 +23,24 @@ type Msg
     = RatingMsg Rating.Msg
 
 
-init : ( Model, Cmd Msg )
+init : Model
 init =
-    ( { ratingState = Rating.initialRatingModel }, Cmd.none )
+    { ratingState = Rating.initialRatingModel }
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> Model
 update msg model =
     case msg of
-        RatingMsg msg ->
-            ( { model | ratingState = (Rating.update msg model.ratingState) }, Cmd.none )
+        RatingMsg message ->
+            { model | ratingState = Rating.update message model.ratingState }
 
 
 view : Model -> Html Msg
 view model =
     div []
-        [ (Html.map RatingMsg (Rating.view [] model.ratingState))
+        [ Html.map RatingMsg (Rating.view [] model.ratingState)
         , div []
             [ text
-                ((Rating.get model.ratingState) |> toString)
+                (Rating.get model.ratingState |> String.fromInt)
             ]
         ]

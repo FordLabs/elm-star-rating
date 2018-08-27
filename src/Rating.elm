@@ -1,4 +1,12 @@
-module Rating exposing (State, view, update, initialRatingModel, Msg, get)
+module Rating
+    exposing
+        ( initialRatingModel
+        , view
+        , update
+        , get
+        , State
+        , Msg
+        )
 
 {-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
 
@@ -53,20 +61,20 @@ type Msg
 {-| Render the component. Accepts a list of css class names and a Rating.State.
 Note that the component uses text characters to display the stars, so use css accordingly.
 
-    Rating.view ["cssClass1","cssClass2"] ratingState
+    Rating.view [ "cssClass1", "cssClass2" ] ratingState
 
 -}
 view : List String -> State -> Html Msg
 view classes ratingModel =
     let
-        val =
+        renderedRating =
             case ratingModel of
-                RatingType a ->
-                    a.renderedRating
+                RatingType state ->
+                    state.renderedRating
     in
         div (classes |> List.map (\class -> Html.Attributes.class class))
             (generateRatingList
-                val
+                renderedRating
                 |> List.indexedMap star
             )
 
@@ -96,8 +104,8 @@ update msg model =
     let
         ratingModel =
             case model of
-                RatingType ratingModel ->
-                    ratingModel
+                RatingType state ->
+                    state
     in
         case msg of
             UpdateRating rating ->
@@ -115,8 +123,8 @@ updateRenderedRatingOnMouseEnter ratingModel enteredRating =
     let
         model =
             case ratingModel of
-                RatingType model ->
-                    model
+                RatingType state ->
+                    state
     in
         RatingType (updateRenderedRating model enteredRating)
 
