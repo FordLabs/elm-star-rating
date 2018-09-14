@@ -13,4 +13,4 @@ Uses unicode star characters(U+2605 & U+2606) to render stars.
  * Use Rating.update to update your Rating.State
  
 ## Example
-  - Link to elly
+  - Link to elly (an online elm demo site -- will post this once I get the package open sourced)
