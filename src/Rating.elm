@@ -1,12 +1,10 @@
-module Rating
-    exposing
-        ( initialRatingModel
-        , view
-        , update
-        , get
-        , State
-        , Msg
-        )
+module Rating exposing
+    ( initialRatingModel
+    , classView, styleView
+    , update
+    , get
+    , State, Msg
+    )
 
 {-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
 
@@ -18,7 +16,7 @@ module Rating
 
 # View
 
-@docs view
+@docs classView, styleView
 
 
 # Update
@@ -64,19 +62,40 @@ Note that the component uses text characters to display the stars, so use css ac
     Rating.view [ "cssClass1", "cssClass2" ] ratingState
 
 -}
-view : List String -> State -> Html Msg
-view classes ratingModel =
+classView : List String -> State -> Html Msg
+classView classes ratingModel =
     let
         renderedRating =
             case ratingModel of
                 RatingType state ->
                     state.renderedRating
     in
-        div (classes |> List.map (\class -> Html.Attributes.class class))
-            (generateRatingList
-                renderedRating
-                |> List.indexedMap star
-            )
+    div (classes |> List.map (\class -> Html.Attributes.class class))
+        (generateRatingList
+            renderedRating
+            |> List.indexedMap star
+        )
+
+
+{-| Render the component. Accepts a list of style tuples and a Rating.State.
+Note that the component uses text characters to display the stars, so use css accordingly.
+
+    Rating.view [ ( "color", "red" ) ] ratingState
+
+-}
+styleView : List ( String, String ) -> State -> Html Msg
+styleView styles ratingModel =
+    let
+        renderedRating =
+            case ratingModel of
+                RatingType state ->
+                    state.renderedRating
+    in
+    div (styles |> List.map (\( style, value ) -> Html.Attributes.style style value))
+        (generateRatingList
+            renderedRating
+            |> List.indexedMap star
+        )
 
 
 star : Int -> Bool -> Html Msg
@@ -85,12 +104,12 @@ star index filled =
         updatedIndex =
             index + 1
     in
-        span
-            [ onClick (UpdateRating updatedIndex)
-            , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
-            , onMouseLeave UpdateRenderedRatingOnLeave
-            ]
-            [ chooseCharacter filled ]
+    span
+        [ onClick (UpdateRating updatedIndex)
+        , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
+        , onMouseLeave UpdateRenderedRatingOnLeave
+        ]
+        [ chooseCharacter filled ]
 
 
 {-| Update the state of the rating component.
@@ -107,15 +126,15 @@ update msg model =
                 RatingType state ->
                     state
     in
-        case msg of
-            UpdateRating rating ->
-                RatingType { rating = rating, renderedRating = rating }
+    case msg of
+        UpdateRating rating ->
+            RatingType { rating = rating, renderedRating = rating }
 
-            UpdateRenderedRatingOnEnter enteredRating ->
-                enteredRating |> updateRenderedRatingOnMouseEnter model
+        UpdateRenderedRatingOnEnter enteredRating ->
+            enteredRating |> updateRenderedRatingOnMouseEnter model
 
-            UpdateRenderedRatingOnLeave ->
-                RatingType { ratingModel | renderedRating = ratingModel.rating }
+        UpdateRenderedRatingOnLeave ->
+            RatingType { ratingModel | renderedRating = ratingModel.rating }
 
 
 updateRenderedRatingOnMouseEnter : State -> Int -> State
@@ -126,7 +145,7 @@ updateRenderedRatingOnMouseEnter ratingModel enteredRating =
                 RatingType state ->
                     state
     in
-        RatingType (updateRenderedRating model enteredRating)
+    RatingType (updateRenderedRating model enteredRating)
 
 
 {-| Get the current rating

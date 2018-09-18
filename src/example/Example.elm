@@ -1,8 +1,8 @@
 module Example exposing (main)
 
+import Browser
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style)
-import Browser
 import Rating
 
 
@@ -16,31 +16,42 @@ main =
 
 
 type alias Model =
-    { ratingState : Rating.State }
+    { classRatingState : Rating.State, styleRatingState : Rating.State }
 
 
 type Msg
-    = RatingMsg Rating.Msg
+    = ClassRatingMsg Rating.Msg
+    | StyleRatingMsg Rating.Msg
 
 
 init : Model
 init =
-    { ratingState = Rating.initialRatingModel }
+    { classRatingState = Rating.initialRatingModel, styleRatingState = Rating.initialRatingModel }
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        RatingMsg message ->
-            { model | ratingState = Rating.update message model.ratingState }
+        ClassRatingMsg message ->
+            { model | classRatingState = Rating.update message model.classRatingState }
+
+        StyleRatingMsg message ->
+            { model | styleRatingState = Rating.update message model.styleRatingState }
 
 
 view : Model -> Html Msg
 view model =
     div []
-        [ Html.map RatingMsg (Rating.view [] model.ratingState)
+        [ Html.map ClassRatingMsg (Rating.classView [] model.classRatingState)
         , div []
             [ text
-                (Rating.get model.ratingState |> String.fromInt)
+                (Rating.get model.classRatingState |> String.fromInt)
+            ]
+        , div
+            []
+            [ Html.map StyleRatingMsg (Rating.styleView [ ( "color", "red" ), ( "font-size", "24px" ) ] model.styleRatingState) ]
+        , div []
+            [ text
+                (Rating.get model.styleRatingState |> String.fromInt)
             ]
         ]
