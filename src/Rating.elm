@@ -177,7 +177,7 @@ get state =
             model.rating
 
 
-{-| Initial rating model. Sets rating to zero.
+{-| Initial rating state. Sets rating to zero.
 -}
 initialState : State
 initialState =
