@@ -16,11 +16,11 @@
 
 
 module Rating exposing
-    ( classView, styleView
+    ( initialState
+    , classView, styleView
     , update
     , get
     , State, Msg
-    , initialState
     )
 
 {-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
@@ -28,7 +28,7 @@ module Rating exposing
 
 # Init
 
-@docs initialRatingModel
+@docs initialState
 
 
 # View
