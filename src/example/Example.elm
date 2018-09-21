@@ -43,7 +43,7 @@ type Msg
 
 init : Model
 init =
-    { classRatingState = Rating.initialRatingModel, styleRatingState = Rating.initialRatingModel }
+    { classRatingState = Rating.initialState, styleRatingState = Rating.initialState }
 
 
 update : Msg -> Model -> Model

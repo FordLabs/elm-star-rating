@@ -1,3 +1,5 @@
+module HelperTests exposing (suite)
+
 {-
    Copyright 2018 Ford Motor Company
 
@@ -13,9 +15,6 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -}
-
-
-module HelperTests exposing (suite)
 
 import Expect
 import Html exposing (text)

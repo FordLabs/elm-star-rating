@@ -16,11 +16,11 @@
 
 
 module Rating exposing
-    ( initialRatingModel
-    , classView, styleView
+    ( classView, styleView
     , update
     , get
     , State, Msg
+    , initialState
     )
 
 {-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
@@ -179,6 +179,6 @@ get state =
 
 {-| Initial rating model. Sets rating to zero.
 -}
-initialRatingModel : State
-initialRatingModel =
+initialState : State
+initialState =
     RatingType (Model 0 0)
