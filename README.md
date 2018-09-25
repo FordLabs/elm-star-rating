@@ -14,4 +14,4 @@ Uses unicode star characters(U+2605 & U+2606) to render stars.
  * Use Rating.update to update your Rating.State
  
 ## Example
-  - [Example on Ellie-app](https://ellie-app.com/3rPkZGwDxJca1) 
+  - [Example on Ellie-app](https://ellie-app.com/3rPGtQvWZ4Pa1) 
