@@ -2,7 +2,7 @@
 
 ## Overview
 A simple 5 star rating component. 
-Uses unicode star characters(U+2605 & U+2606) to render stars.
+Uses unicode star characters ★ & ☆ (U+2605 & U+2606) to render stars.
 
 ## Usage
  * Add a Rating.State to your model

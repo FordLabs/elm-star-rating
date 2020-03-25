@@ -76,7 +76,7 @@ type Msg
 {-| Render the component. Accepts a list of css class names and a Rating.State.
 Note that the component uses text characters to display the stars, so use css accordingly.
 
-    Rating.view [ "cssClass1", "cssClass2" ] ratingState
+    Rating.classView [ "cssClass1", "cssClass2" ] ratingState
 
 -}
 classView : List String -> State -> Html Msg
@@ -97,7 +97,7 @@ classView classes ratingModel =
 {-| Render the component. Accepts a list of style tuples and a Rating.State.
 Note that the component uses text characters to display the stars, so use css accordingly.
 
-    Rating.view [ ( "color", "red" ) ] ratingState
+    Rating.styleView [ ( "color", "red" ) ] ratingState
 
 -}
 styleView : List ( String, String ) -> State -> Html Msg
