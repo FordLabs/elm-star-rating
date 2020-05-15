@@ -20,6 +20,7 @@ module Example exposing (main)
 import Browser
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style)
+import Msg as Rating
 import Rating
 
 

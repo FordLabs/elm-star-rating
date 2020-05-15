@@ -20,7 +20,7 @@ module Rating exposing
     , classView, styleView
     , update
     , get
-    , State, Msg
+    , State
     )
 
 {-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
@@ -57,20 +57,13 @@ import Html.Attributes
 import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
 import Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
 import Internal.Model exposing (Model)
+import Msg exposing (Msg(..))
 
 
 {-| Opaque type obscuring rating model
 -}
 type State
     = RatingType Model
-
-
-{-| Opaque type obscuring rating messages
--}
-type Msg
-    = UpdateRating Int
-    | UpdateRenderedRatingOnEnter Int
-    | UpdateRenderedRatingOnLeave
 
 
 {-| Render the component. Accepts a list of css class names and a Rating.State.
@@ -82,16 +75,25 @@ Note that the component uses text characters to display the stars, so use css ac
 classView : List String -> State -> Html Msg
 classView classes ratingModel =
     let
-        renderedRating =
+        model =
             case ratingModel of
                 RatingType state ->
-                    state.renderedRating
+                    state
+
+        ratingList =
+            generateRatingList
+                model.renderedRating
+
+        modelStar =
+            star model
     in
     div (classes |> List.map (\class -> Html.Attributes.class class))
-        (generateRatingList
-            renderedRating
-            |> List.indexedMap star
-        )
+        (List.indexedMap modelStar ratingList)
+
+
+htmlView : Html msg -> Html msg -> State -> Html Msg
+htmlView selected unselected state =
+    div [] []
 
 
 {-| Render the component. Accepts a list of style tuples and a Rating.State.
@@ -103,20 +105,24 @@ Note that the component uses text characters to display the stars, so use css ac
 styleView : List ( String, String ) -> State -> Html Msg
 styleView styles ratingModel =
     let
-        renderedRating =
+        model =
             case ratingModel of
                 RatingType state ->
-                    state.renderedRating
+                    state
+
+        ratingList =
+            generateRatingList
+                model.renderedRating
+
+        modelStar =
+            star model
     in
     div (styles |> List.map (\( style, value ) -> Html.Attributes.style style value))
-        (generateRatingList
-            renderedRating
-            |> List.indexedMap star
-        )
+        (List.indexedMap modelStar ratingList)
 
 
-star : Int -> Bool -> Html Msg
-star index filled =
+star : Model -> Int -> Bool -> Html Msg
+star model index filled =
     let
         updatedIndex =
             index + 1
@@ -126,7 +132,7 @@ star index filled =
         , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
         , onMouseLeave UpdateRenderedRatingOnLeave
         ]
-        [ chooseCharacter filled ]
+        [ chooseCharacter filled model ]
 
 
 {-| Update the state of the rating component.
@@ -145,7 +151,7 @@ update msg model =
     in
     case msg of
         UpdateRating rating ->
-            RatingType { rating = rating, renderedRating = rating }
+            RatingType { ratingModel | rating = rating, renderedRating = rating }
 
         UpdateRenderedRatingOnEnter enteredRating ->
             enteredRating |> updateRenderedRatingOnMouseEnter model
@@ -181,4 +187,4 @@ get state =
 -}
 initialState : State
 initialState =
-    RatingType (Model 0 0)
+    RatingType (Model 0 0 (text "★") (text "☆"))

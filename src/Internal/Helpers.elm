@@ -17,8 +17,9 @@
 
 module Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
 
-import Html exposing (Html, text)
-import Internal.Model exposing (Model)
+import Html exposing (Html)
+import Internal.Model as Internal
+import Msg exposing (Msg)
 
 
 ratingToBoolean : Int -> Int -> Bool
@@ -30,13 +31,13 @@ ratingToBoolean index rating =
         False
 
 
-chooseCharacter : Bool -> Html msg
-chooseCharacter filled =
+chooseCharacter : Bool -> Internal.Model -> Html Msg
+chooseCharacter filled model =
     if filled then
-        text "★"
+        model.filledStar
 
     else
-        text "☆"
+        model.emptyStar
 
 
 generateRatingList : Int -> List Bool
@@ -44,7 +45,7 @@ generateRatingList rating =
     List.indexedMap (\index _ -> ratingToBoolean index rating) (List.repeat 5 "")
 
 
-updateRenderedRating : Model -> Int -> Model
+updateRenderedRating : Internal.Model -> Int -> Internal.Model
 updateRenderedRating model enteredRating =
     if model.rating > enteredRating then
         { model | renderedRating = model.rating }
