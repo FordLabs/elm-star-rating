@@ -18,12 +18,11 @@
 module Internal.Model exposing (Model)
 
 import Html exposing (Html)
-import Msg exposing (Msg)
 
 
-type alias Model =
+type alias Model msg =
     { rating : Int
     , renderedRating : Int
-    , filledStar : Html Msg
-    , emptyStar : Html Msg
+    , filledStar : Html msg
+    , emptyStar : Html msg
     }

@@ -17,18 +17,21 @@
 
 module Rating exposing
     ( initialState
+    , initialCustomState
     , classView, styleView
     , update
     , get
-    , State
+    , State, Msg
     )
 
-{-| A simple five star rating component. Uses unicode star characters (U+2605 & U+2606).
+{-| A simple five star rating component. Uses unicode star characters ★ & ☆ (U+2605 & U+2606) by default.
+initialCustomState allows for custom Html elements to be used
 
 
 # Init
 
 @docs initialState
+@docs initialCustomState
 
 
 # View
@@ -55,15 +58,22 @@ module Rating exposing
 import Html exposing (Attribute, Html, div, span, text)
 import Html.Attributes
 import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
-import Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
+import Internal.Helpers exposing (chooseCharacter, generateRatingList, updateRenderedRating)
 import Internal.Model exposing (Model)
-import Msg exposing (Msg(..))
 
 
 {-| Opaque type obscuring rating model
 -}
 type State
-    = RatingType Model
+    = RatingType (Model Msg)
+
+
+{-| Opaque type obscuring rating messages
+-}
+type Msg
+    = UpdateRating Int
+    | UpdateRenderedRatingOnEnter Int
+    | UpdateRenderedRatingOnLeave
 
 
 {-| Render the component. Accepts a list of css class names and a Rating.State.
@@ -91,11 +101,6 @@ classView classes ratingModel =
         (List.indexedMap modelStar ratingList)
 
 
-htmlView : Html msg -> Html msg -> State -> Html Msg
-htmlView selected unselected state =
-    div [] []
-
-
 {-| Render the component. Accepts a list of style tuples and a Rating.State.
 Note that the component uses text characters to display the stars, so use css accordingly.
 
@@ -121,7 +126,7 @@ styleView styles ratingModel =
         (List.indexedMap modelStar ratingList)
 
 
-star : Model -> Int -> Bool -> Html Msg
+star : Model Msg -> Int -> Bool -> Html Msg
 star model index filled =
     let
         updatedIndex =
@@ -171,7 +176,7 @@ updateRenderedRatingOnMouseEnter ratingModel enteredRating =
     RatingType (updateRenderedRating model enteredRating)
 
 
-{-| Get the current rating
+{-| Get the current ratingzx
 
     Rating.get ratingState
 
@@ -183,8 +188,15 @@ get state =
             model.rating
 
 
-{-| Initial rating state. Sets rating to zero.
+{-| Initial rating state. Sets rating to zero. Uses "★" and "☆"
 -}
 initialState : State
 initialState =
     RatingType (Model 0 0 (text "★") (text "☆"))
+
+
+{-| Initial rating state. Sets rating to zero. Uses html passed in by user
+-}
+initialCustomState : Html Msg -> Html Msg -> State
+initialCustomState filledStar emptyStar =
+    RatingType (Model 0 0 filledStar emptyStar)

@@ -17,7 +17,7 @@ module HelperTests exposing (suite)
 -}
 
 import Expect
-import Html exposing (text)
+import Html exposing (div, text)
 import Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
 import Internal.Model exposing (Model)
 import Test exposing (Test, describe, test)
@@ -43,14 +43,14 @@ suite =
             ]
         , describe "chooseCharacter tests"
             [ test "True returns filled star" <|
-                \_ -> chooseCharacter True |> Expect.equal (text "★")
+                \_ -> chooseCharacter True (Model 2 2 (text "★") (text "☆")) |> Expect.equal (text "★")
             , test "False returns empty star" <|
-                \_ -> chooseCharacter False |> Expect.equal (text "☆")
+                \_ -> chooseCharacter False (Model 2 2 (text "★") (text "☆")) |> Expect.equal (text "☆")
             ]
         , describe "updatedRenderedRatingOnEnter tests"
             [ test "if rating is greater than index of entered star on mouseEnter then set renderedRating to rating" <|
-                \_ -> 2 |> updateRenderedRating (Model 3 3) |> Expect.equal (Model 3 3)
+                \_ -> 2 |> updateRenderedRating (Model 3 3 (div [] []) (div [] [])) |> Expect.equal (Model 3 3 (div [] []) (div [] []))
             , test "if rating is less than index of entered star on mouseEnter then set renderedRating to index of entered star" <|
-                \_ -> 3 |> updateRenderedRating (Model 2 2) |> Expect.equal (Model 2 3)
+                \_ -> 3 |> updateRenderedRating (Model 2 2 (div [] []) (div [] [])) |> Expect.equal (Model 2 3 (div [] []) (div [] []))
             ]
         ]

@@ -19,8 +19,6 @@ module Example exposing (main)
 
 import Browser
 import Html exposing (Html, div, text)
-import Html.Attributes exposing (style)
-import Msg as Rating
 import Rating
 
 
@@ -34,17 +32,21 @@ main =
 
 
 type alias Model =
-    { classRatingState : Rating.State, styleRatingState : Rating.State }
+    { classRatingState : Rating.State, styleRatingState : Rating.State, customRatingState : Rating.State }
 
 
 type Msg
     = ClassRatingMsg Rating.Msg
     | StyleRatingMsg Rating.Msg
+    | CustomRatingMsg Rating.Msg
 
 
 init : Model
 init =
-    { classRatingState = Rating.initialState, styleRatingState = Rating.initialState }
+    { classRatingState = Rating.initialState
+    , styleRatingState = Rating.initialState
+    , customRatingState = Rating.initialCustomState (text "😃") (text "\u{1F928}")
+    }
 
 
 update : Msg -> Model -> Model
@@ -55,6 +57,9 @@ update msg model =
 
         StyleRatingMsg message ->
             { model | styleRatingState = Rating.update message model.styleRatingState }
+
+        CustomRatingMsg message ->
+            { model | customRatingState = Rating.update message model.customRatingState }
 
 
 view : Model -> Html Msg
@@ -71,5 +76,12 @@ view model =
         , div []
             [ text
                 (Rating.get model.styleRatingState |> String.fromInt)
+            ]
+        , div
+            []
+            [ Html.map CustomRatingMsg (Rating.styleView [ ( "font-size", "24px" ) ] model.customRatingState) ]
+        , div []
+            [ text
+                (Rating.get model.customRatingState |> String.fromInt)
             ]
         ]
