@@ -21,11 +21,11 @@ module Rating exposing
     , classView, styleView
     , update
     , get
+    , set
     , State, Msg
     )
 
-{-| A simple five star rating component. Uses unicode star characters ★ & ☆ (U+2605 & U+2606) by default.
-initialCustomState allows for custom Html elements to be used
+{-| A simple five star rating component. Uses unicode star characters ★ & ☆ (U+2605 & U+2606) by default. Allows for custom Html elements to be used.
 
 
 # Init
@@ -47,6 +47,7 @@ initialCustomState allows for custom Html elements to be used
 # Helpers
 
 @docs get
+@docs set
 
 
 # Types
@@ -62,13 +63,13 @@ import Internal.Helpers exposing (chooseCharacter, generateRatingList, updateRen
 import Internal.Model exposing (Model)
 
 
-{-| Opaque type obscuring rating model
+{-| Opaque type obscuring rating model.
 -}
 type State
     = RatingType (Model Msg)
 
 
-{-| Opaque type obscuring rating messages
+{-| Opaque type obscuring rating messages.
 -}
 type Msg
     = UpdateRating Int
@@ -176,7 +177,7 @@ updateRenderedRatingOnMouseEnter ratingModel enteredRating =
     RatingType (updateRenderedRating model enteredRating)
 
 
-{-| Get the current ratingzx
+{-| Get the current rating.
 
     Rating.get ratingState
 
@@ -188,14 +189,26 @@ get state =
             model.rating
 
 
-{-| Initial rating state. Sets rating to zero. Uses "★" and "☆"
+{-| Set the rating. Keeps values between 0 and 5.
+
+    Rating.set 4 ratingState
+
+-}
+set : Int -> State -> State
+set rating state =
+    case state of
+        RatingType model ->
+            RatingType { model | rating = clamp 0 5 rating, renderedRating = clamp 0 5 rating }
+
+
+{-| Initial rating state. Sets rating to zero. Uses "★" and "☆".
 -}
 initialState : State
 initialState =
     RatingType (Model 0 0 (text "★") (text "☆"))
 
 
-{-| Initial rating state. Sets rating to zero. Uses html passed in by user
+{-| Initial rating state. Sets rating to zero. Uses html passed in by user.
 -}
 initialCustomState : Html Msg -> Html Msg -> State
 initialCustomState filledStar emptyStar =

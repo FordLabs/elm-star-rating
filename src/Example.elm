@@ -18,7 +18,7 @@
 module Example exposing (main)
 
 import Browser
-import Html exposing (Html, div, text)
+import Html exposing (Html, button, div, text)
 import Rating
 
 
@@ -44,7 +44,7 @@ type Msg
 init : Model
 init =
     { classRatingState = Rating.initialState
-    , styleRatingState = Rating.initialState
+    , styleRatingState = Rating.initialState |> Rating.set 3
     , customRatingState = Rating.initialCustomState (text "😃") (text "\u{1F928}")
     }
 
