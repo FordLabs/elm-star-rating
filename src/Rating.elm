@@ -56,8 +56,8 @@ module Rating exposing
 
 -}
 
-import Html exposing (Attribute, Html, div, span, text)
-import Html.Attributes
+import Html exposing (Attribute, Html, div, input, span, text)
+import Html.Attributes exposing (attribute, name, style, type_)
 import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
 import Internal.Helpers exposing (chooseCharacter, generateRatingList, updateRenderedRating)
 import Internal.Model exposing (Model)
@@ -133,12 +133,25 @@ star model index filled =
         updatedIndex =
             index + 1
     in
-    span
-        [ onClick (UpdateRating updatedIndex)
-        , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
-        , onMouseLeave UpdateRenderedRatingOnLeave
+    span []
+        [ input
+            [ onClick (UpdateRating updatedIndex)
+            , type_ "radio"
+            , name "rating"
+            , style "appearance" "none"
+            , style "position" "absolute"
+            , attribute "aria-label" ("rate " ++ String.fromInt updatedIndex ++ " stars")
+            ]
+            []
+        , span
+            [ onClick (UpdateRating updatedIndex)
+            , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
+            , onMouseLeave UpdateRenderedRatingOnLeave
+            , style "cursor" "pointer"
+            , attribute "aria-hidden" "true"
+            ]
+            [ chooseCharacter filled model ]
         ]
-        [ chooseCharacter filled model ]
 
 
 {-| Update the state of the rating component.

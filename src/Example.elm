@@ -18,7 +18,8 @@
 module Example exposing (main)
 
 import Browser
-import Html exposing (Html, button, div, text)
+import Html exposing (Html, div, text)
+import Html.Attributes exposing (style)
 import Rating
 
 
@@ -45,7 +46,7 @@ init : Model
 init =
     { classRatingState = Rating.initialState
     , styleRatingState = Rating.initialState |> Rating.set 3
-    , customRatingState = Rating.initialCustomState (text "😃") (text "\u{1F928}")
+    , customRatingState = Rating.initialCustomState (text "😃") (text "🤨")
     }
 
 
@@ -64,7 +65,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ style "padding-left" "3rem" ]
         [ Html.map ClassRatingMsg (Rating.classView [] model.classRatingState)
         , div []
             [ text
