@@ -16,4 +16,4 @@ Can use custom html elements by using the initialCustomState initializer functio
  * Use Rating.update to update your Rating.State
  
 ## Example
-  - [Example on Ellie-app](https://ellie-app.com/3rPGtQvWZ4Pa1) 
+  - [Example on Ellie-app](https://ellie-app.com/fSjtyPfCCLma1) 
