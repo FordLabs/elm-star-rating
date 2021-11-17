@@ -66,21 +66,21 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [ style "padding-left" "3rem" ]
-        [ Html.map ClassRatingMsg (Rating.classView [] model.classRatingState)
+        [ Html.map ClassRatingMsg (Rating.classView "default rating" [] model.classRatingState)
         , div []
             [ text
                 (Rating.get model.classRatingState |> String.fromInt)
             ]
         , div
             []
-            [ Html.map StyleRatingMsg (Rating.styleView [ ( "color", "red" ), ( "font-size", "24px" ) ] model.styleRatingState) ]
+            [ Html.map StyleRatingMsg (Rating.styleView "red rating" [ ( "color", "red" ), ( "font-size", "24px" ) ] model.styleRatingState) ]
         , div []
             [ text
                 (Rating.get model.styleRatingState |> String.fromInt)
             ]
         , div
             []
-            [ Html.map CustomRatingMsg (Rating.styleView [ ( "font-size", "24px" ) ] model.customRatingState) ]
+            [ Html.map CustomRatingMsg (Rating.styleView "emoji rating" [ ( "font-size", "24px" ) ] model.customRatingState) ]
         , div []
             [ text
                 (Rating.get model.customRatingState |> String.fromInt)

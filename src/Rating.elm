@@ -83,8 +83,8 @@ Note that the component uses text characters to display the stars, so use css ac
     Rating.classView [ "cssClass1", "cssClass2" ] ratingState
 
 -}
-classView : List String -> State -> Html Msg
-classView classes ratingModel =
+classView : String -> List String -> State -> Html Msg
+classView radioGroupName classes ratingModel =
     let
         model =
             case ratingModel of
@@ -96,7 +96,7 @@ classView classes ratingModel =
                 model.renderedRating
 
         modelStar =
-            star model
+            star radioGroupName model
     in
     div (classes |> List.map (\class -> Html.Attributes.class class))
         (List.indexedMap modelStar ratingList)
@@ -108,8 +108,8 @@ Note that the component uses text characters to display the stars, so use css ac
     Rating.styleView [ ( "color", "red" ) ] ratingState
 
 -}
-styleView : List ( String, String ) -> State -> Html Msg
-styleView styles ratingModel =
+styleView : String -> List ( String, String ) -> State -> Html Msg
+styleView radioGroupName styles ratingModel =
     let
         model =
             case ratingModel of
@@ -121,14 +121,14 @@ styleView styles ratingModel =
                 model.renderedRating
 
         modelStar =
-            star model
+            star radioGroupName model
     in
     div (styles |> List.map (\( style, value ) -> Html.Attributes.style style value))
         (List.indexedMap modelStar ratingList)
 
 
-star : Model Msg -> Int -> Bool -> Html Msg
-star model index filled =
+star : String -> Model Msg -> Int -> Bool -> Html Msg
+star radioGroupName model index filled =
     let
         updatedIndex =
             index + 1
@@ -137,7 +137,7 @@ star model index filled =
         [ input
             [ onClick (UpdateRating updatedIndex)
             , type_ "radio"
-            , name "rating"
+            , name radioGroupName
             , style "appearance" "none"
             , style "position" "absolute"
             , attribute "aria-label" ("rate " ++ String.fromInt updatedIndex ++ " stars")
