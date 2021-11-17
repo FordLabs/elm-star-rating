@@ -18,7 +18,7 @@
 module Example exposing (main)
 
 import Browser
-import Html exposing (Html, div, text)
+import Html exposing (Html, div, fieldset, legend, text)
 import Html.Attributes exposing (style)
 import Rating
 
@@ -65,24 +65,30 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [ style "padding-left" "3rem" ]
-        [ Html.map ClassRatingMsg (Rating.classView "default rating" [] model.classRatingState)
-        , div []
-            [ text
-                (Rating.get model.classRatingState |> String.fromInt)
-            ]
-        , div
+    div [ style "padding-left" "3rem", style "width" "15rem" ]
+        [ fieldset
             []
-            [ Html.map StyleRatingMsg (Rating.styleView "red rating" [ ( "color", "red" ), ( "font-size", "24px" ) ] model.styleRatingState) ]
-        , div []
-            [ text
-                (Rating.get model.styleRatingState |> String.fromInt)
+            [ legend [] [ text "default star rating" ]
+            , Html.map ClassRatingMsg (Rating.classView "default rating" [] model.classRatingState)
+            , div []
+                [ text
+                    (Rating.get model.classRatingState |> String.fromInt)
+                ]
             ]
-        , div
-            []
-            [ Html.map CustomRatingMsg (Rating.styleView "emoji rating" [ ( "font-size", "24px" ) ] model.customRatingState) ]
-        , div []
-            [ text
-                (Rating.get model.customRatingState |> String.fromInt)
+        , fieldset []
+            [ legend [] [ text "red star rating" ]
+            , Html.map StyleRatingMsg (Rating.styleView "red rating" [ ( "color", "red" ), ( "font-size", "24px" ) ] model.styleRatingState)
+            , div []
+                [ text
+                    (Rating.get model.styleRatingState |> String.fromInt)
+                ]
+            ]
+        , fieldset []
+            [ legend [] [ text "custom emoji star rating" ]
+            , Html.map CustomRatingMsg (Rating.styleView "emoji rating" [ ( "font-size", "24px" ) ] model.customRatingState)
+            , div []
+                [ text
+                    (Rating.get model.customRatingState |> String.fromInt)
+                ]
             ]
         ]

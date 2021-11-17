@@ -2,6 +2,7 @@
 
 ## Overview
 A simple 5 star rating component. 
+Uses radio buttons to represent stars for accessibility.
 Uses unicode star characters ★ & ☆ (U+2605 & U+2606) to render stars by default.
 Can use custom html elements by using the initialCustomState initializer function
 

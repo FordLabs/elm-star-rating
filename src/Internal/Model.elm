@@ -23,6 +23,7 @@ import Html exposing (Html)
 type alias Model msg =
     { rating : Int
     , renderedRating : Int
+    , focusedStar : Maybe Int
     , filledStar : Html msg
     , emptyStar : Html msg
     }

@@ -56,10 +56,10 @@ module Rating exposing
 
 -}
 
-import Html exposing (Attribute, Html, div, input, span, text)
+import Html exposing (Attribute, Html, div, input, label, span, text)
 import Html.Attributes exposing (attribute, name, style, type_)
-import Html.Events exposing (onClick, onMouseEnter, onMouseLeave)
-import Internal.Helpers exposing (chooseCharacter, generateRatingList, updateRenderedRating)
+import Html.Events exposing (onBlur, onClick, onFocus, onMouseEnter, onMouseLeave)
+import Internal.Helpers exposing (addOutlineIfInputFocused, chooseCharacter, generateRatingList, updateRenderedRating)
 import Internal.Model exposing (Model)
 
 
@@ -75,12 +75,14 @@ type Msg
     = UpdateRating Int
     | UpdateRenderedRatingOnEnter Int
     | UpdateRenderedRatingOnLeave
+    | InputFocused (Maybe Int)
 
 
-{-| Render the component. Accepts a list of css class names and a Rating.State.
-Note that the component uses text characters to display the stars, so use css accordingly.
+{-| Render the component. Accepts a name for the rating component, a list of css class names and a Rating.State.
+The radioGroupName is used to populate the name parameter on the radio buttons, so use a unique name for each star rating on the same page.
+If using initialState to initialize this component, it uses text characters to display the stars, so use css accordingly.
 
-    Rating.classView [ "cssClass1", "cssClass2" ] ratingState
+    Rating.classView "starRating" [ "cssClass1", "cssClass2" ] ratingState
 
 -}
 classView : String -> List String -> State -> Html Msg
@@ -102,10 +104,11 @@ classView radioGroupName classes ratingModel =
         (List.indexedMap modelStar ratingList)
 
 
-{-| Render the component. Accepts a list of style tuples and a Rating.State.
-Note that the component uses text characters to display the stars, so use css accordingly.
+{-| Render the component. Accepts a name for the rating component, a list of style tuples and a Rating.State.
+The radioGroupName is used to populate the name parameter on the radio buttons, so use a unique name for each star rating on the same page.
+If using initialState to initialize this component, it uses text characters to display the stars, so use css accordingly.
 
-    Rating.styleView [ ( "color", "red" ) ] ratingState
+    Rating.styleView "starRating" [ ( "color", "red" ) ] ratingState
 
 -}
 styleView : String -> List ( String, String ) -> State -> Html Msg
@@ -133,23 +136,28 @@ star radioGroupName model index filled =
         updatedIndex =
             index + 1
     in
-    span []
+    label []
         [ input
             [ onClick (UpdateRating updatedIndex)
+            , onFocus (InputFocused (Just updatedIndex))
+            , onBlur (InputFocused Nothing)
             , type_ "radio"
             , name radioGroupName
             , style "appearance" "none"
             , style "position" "absolute"
-            , attribute "aria-label" ("rate " ++ String.fromInt updatedIndex ++ " stars")
+            , style "outline" "none"
             ]
             []
         , span
-            [ onClick (UpdateRating updatedIndex)
-            , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
-            , onMouseLeave UpdateRenderedRatingOnLeave
-            , style "cursor" "pointer"
-            , attribute "aria-hidden" "true"
-            ]
+            ([ onClick (UpdateRating updatedIndex)
+             , onBlur (InputFocused Nothing)
+             , onMouseEnter (UpdateRenderedRatingOnEnter updatedIndex)
+             , onMouseLeave UpdateRenderedRatingOnLeave
+             , style "cursor" "pointer"
+             , attribute "aria-label" ("rate " ++ String.fromInt updatedIndex ++ " stars")
+             ]
+                ++ addOutlineIfInputFocused model.focusedStar updatedIndex
+            )
             [ chooseCharacter filled model ]
         ]
 
@@ -170,13 +178,16 @@ update msg model =
     in
     case msg of
         UpdateRating rating ->
-            RatingType { ratingModel | rating = rating, renderedRating = rating }
+            RatingType { ratingModel | rating = rating, renderedRating = rating, focusedStar = Just rating }
 
         UpdateRenderedRatingOnEnter enteredRating ->
             enteredRating |> updateRenderedRatingOnMouseEnter model
 
         UpdateRenderedRatingOnLeave ->
             RatingType { ratingModel | renderedRating = ratingModel.rating }
+
+        InputFocused focusedIndex ->
+            RatingType { ratingModel | focusedStar = focusedIndex }
 
 
 updateRenderedRatingOnMouseEnter : State -> Int -> State
@@ -218,11 +229,11 @@ set rating state =
 -}
 initialState : State
 initialState =
-    RatingType (Model 0 0 (text "★") (text "☆"))
+    RatingType (Model 0 0 Nothing (text "★") (text "☆"))
 
 
 {-| Initial rating state. Sets rating to zero. Uses html passed in by user.
 -}
 initialCustomState : Html Msg -> Html Msg -> State
 initialCustomState filledStar emptyStar =
-    RatingType (Model 0 0 filledStar emptyStar)
+    RatingType (Model 0 0 Nothing filledStar emptyStar)

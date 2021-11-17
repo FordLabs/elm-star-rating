@@ -18,7 +18,8 @@ module HelperTests exposing (suite)
 
 import Expect
 import Html exposing (div, text)
-import Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
+import Html.Attributes exposing (style)
+import Internal.Helpers exposing (addOutlineIfInputFocused, chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
 import Internal.Model exposing (Model)
 import Test exposing (Test, describe, test)
 
@@ -43,14 +44,22 @@ suite =
             ]
         , describe "chooseCharacter tests"
             [ test "True returns filled star" <|
-                \_ -> chooseCharacter True (Model 2 2 (text "★") (text "☆")) |> Expect.equal (text "★")
+                \_ -> chooseCharacter True (Model 2 2 Nothing (text "★") (text "☆")) |> Expect.equal (text "★")
             , test "False returns empty star" <|
-                \_ -> chooseCharacter False (Model 2 2 (text "★") (text "☆")) |> Expect.equal (text "☆")
+                \_ -> chooseCharacter False (Model 2 2 Nothing (text "★") (text "☆")) |> Expect.equal (text "☆")
             ]
         , describe "updatedRenderedRatingOnEnter tests"
             [ test "if rating is greater than index of entered star on mouseEnter then set renderedRating to rating" <|
-                \_ -> 2 |> updateRenderedRating (Model 3 3 (div [] []) (div [] [])) |> Expect.equal (Model 3 3 (div [] []) (div [] []))
+                \_ -> 2 |> updateRenderedRating (Model 3 3 Nothing (div [] []) (div [] [])) |> Expect.equal (Model 3 3 Nothing (div [] []) (div [] []))
             , test "if rating is less than index of entered star on mouseEnter then set renderedRating to index of entered star" <|
-                \_ -> 3 |> updateRenderedRating (Model 2 2 (div [] []) (div [] [])) |> Expect.equal (Model 2 3 (div [] []) (div [] []))
+                \_ -> 3 |> updateRenderedRating (Model 2 2 Nothing (div [] []) (div [] [])) |> Expect.equal (Model 2 3 Nothing (div [] []) (div [] []))
+            ]
+        , describe "addOutlineIfInputFocused tests"
+            [ test "if focused index is Nothing then return empty list" <|
+                \_ -> addOutlineIfInputFocused Nothing 1 |> Expect.equal []
+            , test "if focused index is not equal to starIndex then return empty list" <|
+                \_ -> addOutlineIfInputFocused (Just 3) 1 |> Expect.equal []
+            , test "if focused index is equal to starIndex then return list of styles containing blue outline" <|
+                \_ -> addOutlineIfInputFocused (Just 3) 3 |> Expect.equal [ style "outline" "0.125rem solid deepskyblue", style "border-radius" ".125rem" ]
             ]
         ]

@@ -15,10 +15,12 @@
 -}
 
 
-module Internal.Helpers exposing (chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
+module Internal.Helpers exposing (addOutlineIfInputFocused, chooseCharacter, generateRatingList, ratingToBoolean, updateRenderedRating)
 
 import Html exposing (Html)
+import Html.Attributes exposing (style)
 import Internal.Model exposing (Model)
+import Maybe
 
 
 ratingToBoolean : Int -> Int -> Bool
@@ -51,3 +53,17 @@ updateRenderedRating model enteredRating =
 
     else
         { model | renderedRating = enteredRating }
+
+
+addOutlineIfInputFocused : Maybe Int -> Int -> List (Html.Attribute msg)
+addOutlineIfInputFocused focusedIndex starIndex =
+    case focusedIndex of
+        Just index ->
+            if index == starIndex then
+                [ style "outline" "0.125rem solid deepskyblue", style "border-radius" ".125rem" ]
+
+            else
+                []
+
+        Nothing ->
+            []
